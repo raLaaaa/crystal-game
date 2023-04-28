@@ -19,6 +19,7 @@ class KnightInterface extends GameInterface {
   void render(Canvas canvas) {
     try {
       _drawKey(canvas);
+      _drawWave(canvas);
     } catch (e) {}
     super.render(canvas);
   }
@@ -26,6 +27,18 @@ class KnightInterface extends GameInterface {
   void _drawKey(Canvas c) {
     if (gameRef.player != null && (gameRef.player as Knight).containKey) {
       key.renderRect(c, Rect.fromLTWH(150, 20, 35, 30));
+    }
+  }
+
+  void _drawWave(Canvas c) {
+    if (gameRef.player != null) {
+
+      Knight p = gameRef.player as Knight;
+
+      TextSpan span = new TextSpan(style: new TextStyle(color: Colors.blue[800]), text: !p.won ? 'Current Wave: ' + p.isOnCurrentWave.toString(): 'You won!');
+      TextPainter tp = new TextPainter(text: span, textAlign: TextAlign.left, textDirection: TextDirection.ltr);
+      tp.layout();
+      tp.paint(c, new Offset(150, 20));
     }
   }
 }

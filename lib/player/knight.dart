@@ -16,6 +16,8 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision {
   double initSpeed = tileSize / 0.25;
   async.Timer? _timerStamina;
   bool containKey = false;
+  int isOnCurrentWave = 0;
+  bool won = false;
   bool showObserveEnemy = false;
 
   Knight(Vector2 position)
