@@ -9,7 +9,8 @@ import '../decoration/areas/target_crystal_area.dart';
 import '../enemies/goblin.dart';
 
 class WaveController extends GameComponent {
-  final countdown = Timer(0.5, repeat: false, autoStart: true);
+  final timeBetweenUnitSpawns = Timer(0.5, repeat: false, autoStart: true);
+  final timeBetweenUnitWaveChanges = Timer(0.5, repeat: false, autoStart: false);
   int counter = 0;
   int counterLimit = 0;
   int currentWave = 0;
@@ -25,17 +26,17 @@ class WaveController extends GameComponent {
   void setupWaves() {
     List<CrystalGameEnemy> waveOne = [];
     waveOne.add(Goblin(Vector2(0,0)));
-    waveOne.add(Goblin(Vector2(0,0)));
-    waveOne.add(Goblin(Vector2(0,0)));
-    waveOne.add(Goblin(Vector2(0,0)));
-    waveOne.add(Goblin(Vector2(0,0)));
-    waveOne.add(Goblin(Vector2(0,0)));
-    waveOne.add(Goblin(Vector2(0,0)));
-    waveOne.add(Goblin(Vector2(0,0)));
-    waveOne.add(Goblin(Vector2(0,0)));
-    waveOne.add(Goblin(Vector2(0,0)));
-    waveOne.add(Goblin(Vector2(0,0)));
-    waveOne.add(Goblin(Vector2(0,0)));
+    // waveOne.add(Goblin(Vector2(0,0)));
+    // waveOne.add(Goblin(Vector2(0,0)));
+    // waveOne.add(Goblin(Vector2(0,0)));
+    // waveOne.add(Goblin(Vector2(0,0)));
+    // waveOne.add(Goblin(Vector2(0,0)));
+    // waveOne.add(Goblin(Vector2(0,0)));
+    // waveOne.add(Goblin(Vector2(0,0)));
+    // waveOne.add(Goblin(Vector2(0,0)));
+    // waveOne.add(Goblin(Vector2(0,0)));
+    // waveOne.add(Goblin(Vector2(0,0)));
+    // waveOne.add(Goblin(Vector2(0,0)));
     waves.add(waveOne);
 
     List<CrystalGameEnemy> waveTwo = [];
@@ -51,11 +52,11 @@ class WaveController extends GameComponent {
   void update(double dt) {
 
     if(!disableWaves) {
-    countdown.update(dt);
+    timeBetweenUnitSpawns.update(dt);
 
-    if(countdown.finished){
-      countdown.reset();
-      countdown.start();
+    if(timeBetweenUnitSpawns.finished){
+      timeBetweenUnitSpawns.reset();
+      timeBetweenUnitSpawns.start();
 
       if(counter < counterLimit) {
         spawnWave(dt);
@@ -76,7 +77,7 @@ class WaveController extends GameComponent {
           disableWaves = true;
           print('YOU WON');
           player.won = true;
-          countdown.stop();
+          timeBetweenUnitSpawns.stop();
           return;
         } else {
           counterLimit = waves[currentWave].length;

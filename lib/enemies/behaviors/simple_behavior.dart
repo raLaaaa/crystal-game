@@ -16,11 +16,10 @@ mixin SimpleBehavior on CrystalGameEnemy {
     Crystal? crystal = getCrystalOfCurrentMap();
     List<TargetCrystalArea> areas = getAreasOfCurrentMap();
 
-      // this.seeAndMoveToPlayer(
-      //     radiusVision: tileSize * 50,
-      //     closePlayer: (player) {
-      //       enemy.execAttack();
-      //     });
+
+    if(enemy.position.distanceTo(gameRef.player!.position) < 35 ) {
+        enemy.execAttack();
+    }
 
 
     if (crystal != null) {
