@@ -28,23 +28,24 @@ class WaveController extends GameComponent {
   void setupWaves() {
     List<CrystalGameEnemy> waveOne = [];
     waveOne.add(Goblin(Vector2(0, 0)));
-    waveOne.add(Goblin(Vector2(0, 0)));
-    waveOne.add(Goblin(Vector2(0, 0)));
-    waveOne.add(Goblin(Vector2(0, 0)));
+    // waveOne.add(Goblin(Vector2(0, 0)));
+    // waveOne.add(Goblin(Vector2(0, 0)));
+    // waveOne.add(Goblin(Vector2(0, 0)));
     waves.add(waveOne);
 
-    // List<CrystalGameEnemy> waveTwo = [];
-    // waveTwo.add(Goblin(Vector2(0, 0)));
+    List<CrystalGameEnemy> waveTwo = [];
+    waveTwo.add(Goblin(Vector2(0, 0)));
     // waveTwo.add(Goblin(Vector2(0, 0)));
     // waveTwo.add(Goblin(Vector2(0, 0)));
     // waveTwo.add(Goblin(Vector2(0, 0)));
     // waveTwo.add(Goblin(Vector2(0, 0)));
     // waveTwo.add(Goblin(Vector2(0, 0)));
     // // waveTwo.add(Goblin(Vector2(0, 0)));
-    // // waveTwo.add(Goblin(Vector2(0, 0)));
-    // waves.add(waveTwo);
+    //  waveTwo.add(Goblin(Vector2(0, 0)));
+    waves.add(waveTwo);
 
-    // List<CrystalGameEnemy> waveThree = [];
+    List<CrystalGameEnemy> waveThree = [];
+    waveThree.add(Imp(Vector2(0, 0)));
     // waveThree.add(Imp(Vector2(0, 0)));
     // waveThree.add(Imp(Vector2(0, 0)));
     // waveThree.add(Imp(Vector2(0, 0)));
@@ -53,11 +54,10 @@ class WaveController extends GameComponent {
     // waveThree.add(Imp(Vector2(0, 0)));
     // waveThree.add(Imp(Vector2(0, 0)));
     // waveThree.add(Imp(Vector2(0, 0)));
-    // waveThree.add(Imp(Vector2(0, 0)));
-    // waves.add(waveThree);
+    waves.add(waveThree);
 
-    // List<CrystalGameEnemy> waveFour = [];
-    // waveFour.add(Imp(Vector2(0, 0)));
+    List<CrystalGameEnemy> waveFour = [];
+    waveFour.add(Imp(Vector2(0, 0)));
     // waveFour.add(Goblin(Vector2(0, 0)));
     // waveFour.add(Imp(Vector2(0, 0)));
     // waveFour.add(Goblin(Vector2(0, 0)));
@@ -72,7 +72,7 @@ class WaveController extends GameComponent {
     // waveFour.add(Imp(Vector2(0, 0)));
     // waveFour.add(Imp(Vector2(0, 0)));
     // waveFour.add(Imp(Vector2(0, 0)));
-    // waves.add(waveFour);
+    waves.add(waveFour);
 
     counterLimit = waves[0].length;
   }
@@ -184,7 +184,8 @@ class WaveController extends GameComponent {
   void spawnWave(dt) {
     var areas = getAreasOfCurrentMap();
     Random random = Random();
-    var rnd = random.nextInt(areas.length - 1) + 1;
+    print(areas.length);
+    var rnd = random.nextInt(areas.length-1);
     CrystalGameEnemy toSpawn = waves[currentWave][counter];
     toSpawn.size = Vector2(tileSize / 1.5, tileSize / 1.5);
     toSpawn.position = areas[rnd].position;
