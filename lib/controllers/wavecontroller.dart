@@ -10,7 +10,7 @@ import '../enemies/goblin.dart';
 
 class WaveController extends GameComponent {
   final timeBetweenUnitSpawns = Timer(0.5, repeat: false, autoStart: true);
-  final timeBetweenWaveChanges = Timer(2, repeat: false, autoStart: false);
+  final timeBetweenWaveChanges = Timer(5, repeat: false, autoStart: false);
   final timingTreshold = .200;
   int counter = 0;
   int counterLimit = 0;
@@ -57,6 +57,12 @@ class WaveController extends GameComponent {
 
         if(!timeBetweenWaveChanges.isRunning()) {
           timeBetweenWaveChanges.start();
+
+          if (gameRef.player is Knight) {
+            Knight player = gameRef.player as Knight;
+            player.currentlyWaveChanging = true;
+          } 
+
         }
 
         if((timeBetweenWaveChanges.limit - timeBetweenWaveChanges.current) < timingTreshold) {
@@ -64,6 +70,18 @@ class WaveController extends GameComponent {
           counter = 0;
           timeBetweenWaveChanges.reset();
           timeBetweenWaveChanges.stop();
+
+          if (gameRef.player is Knight) {
+            Knight player = gameRef.player as Knight;
+            player.currentlyWaveChanging = false;
+          }
+
+        }
+        else {
+          if (gameRef.player is Knight) {
+            Knight player = gameRef.player as Knight;
+            player.timeUntilNextWave = (timeBetweenWaveChanges.limit - timeBetweenWaveChanges.current);
+          } 
         }
 
         if (gameRef.player is Knight) {
