@@ -34,8 +34,15 @@ class KnightInterface extends GameInterface {
     if (gameRef.player != null) {
 
       Knight p = gameRef.player as Knight;
+      TextSpan span;
 
-      TextSpan span = new TextSpan(style: new TextStyle(color: Colors.blue[800]), text: !p.won ? 'Current Wave: ' + p.isOnCurrentWave.toString(): 'You won!');
+      if(p.currentlyWaveChanging) {
+        span = new TextSpan(style: new TextStyle(color: Colors.blue[800]), text: !p.won ? 'Current Wave: ' + p.isOnCurrentWave.toString(): 'You won!');
+      }
+      else {
+        span = new TextSpan(style: new TextStyle(color: Colors.blue[800]), text: 'Time until next Wave: ${p.timeUntilNextWave}');
+      }
+      
       TextPainter tp = new TextPainter(text: span, textAlign: TextAlign.left, textDirection: TextDirection.ltr);
       tp.layout();
       tp.paint(c, new Offset(150, 20));

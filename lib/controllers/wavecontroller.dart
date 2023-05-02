@@ -10,7 +10,8 @@ import '../enemies/goblin.dart';
 
 class WaveController extends GameComponent {
   final timeBetweenUnitSpawns = Timer(0.5, repeat: false, autoStart: true);
-  final timeBetweenUnitWaveChanges = Timer(0.5, repeat: false, autoStart: false);
+  final timeBetweenWaveChanges = Timer(2, repeat: false, autoStart: false);
+  final timingTreshold = .200;
   int counter = 0;
   int counterLimit = 0;
   int currentWave = 0;
@@ -22,10 +23,9 @@ class WaveController extends GameComponent {
     setupWaves();
   }
 
-
   void setupWaves() {
     List<CrystalGameEnemy> waveOne = [];
-    waveOne.add(Goblin(Vector2(0,0)));
+    waveOne.add(Goblin(Vector2(0, 0)));
     // waveOne.add(Goblin(Vector2(0,0)));
     // waveOne.add(Goblin(Vector2(0,0)));
     // waveOne.add(Goblin(Vector2(0,0)));
@@ -40,38 +40,38 @@ class WaveController extends GameComponent {
     waves.add(waveOne);
 
     List<CrystalGameEnemy> waveTwo = [];
-    waveTwo.add(Goblin(Vector2(0,0)));
-    waveTwo.add(Goblin(Vector2(0,0)));
-    waveTwo.add(Goblin(Vector2(0,0)));
+    waveTwo.add(Goblin(Vector2(0, 0)));
+    waveTwo.add(Goblin(Vector2(0, 0)));
+    waveTwo.add(Goblin(Vector2(0, 0)));
     waves.add(waveTwo);
     counterLimit = waves[0].length;
   }
-  
 
   @override
   void update(double dt) {
+    if (!disableWaves) {
+      timeBetweenUnitSpawns.update(dt);
+      timeBetweenWaveChanges.update(dt);
 
-    if(!disableWaves) {
-    timeBetweenUnitSpawns.update(dt);
+      if (checkIfWaveIsFinished()) {
 
-    if(timeBetweenUnitSpawns.finished){
-      timeBetweenUnitSpawns.reset();
-      timeBetweenUnitSpawns.start();
+        if(!timeBetweenWaveChanges.isRunning()) {
+          timeBetweenWaveChanges.start();
+        }
 
-      if(counter < counterLimit) {
-        spawnWave(dt);
-      }
+        if((timeBetweenWaveChanges.limit - timeBetweenWaveChanges.current) < timingTreshold) {
+          currentWave++;
+          counter = 0;
+          timeBetweenWaveChanges.reset();
+          timeBetweenWaveChanges.stop();
+        }
 
-      if(checkIfWaveIsFinished()) {
-        currentWave++;
-        counter = 0;
-
-        if(gameRef.player is Knight) {
+        if (gameRef.player is Knight) {
           Knight player = gameRef.player as Knight;
           player.isOnCurrentWave = currentWave;
         }
 
-        if(currentWave > waves.length - 1) {
+        if (currentWave > waves.length - 1) {
           Knight player = gameRef.player as Knight;
           player.isOnCurrentWave = currentWave;
           disableWaves = true;
@@ -82,11 +82,16 @@ class WaveController extends GameComponent {
         } else {
           counterLimit = waves[currentWave].length;
         }
-
       }
 
-    }
+      if (timeBetweenUnitSpawns.finished) {
+        timeBetweenUnitSpawns.reset();
+        timeBetweenUnitSpawns.start();
 
+        if (counter < counterLimit) {
+          spawnWave(dt);
+        }
+      }
     }
 
     super.update(dt);
@@ -96,17 +101,16 @@ class WaveController extends GameComponent {
     bool toReturn = true;
 
     waves[currentWave].forEach((element) {
-      if(!element.isDead) {
+      if (!element.isDead) {
         toReturn = false;
       }
     });
 
-    if(gameRef.livingEnemies().isNotEmpty) {
+    if (gameRef.livingEnemies().isNotEmpty) {
       toReturn = false;
     }
 
     return toReturn;
-
   }
 
   void spawnWave(dt) {
@@ -114,10 +118,10 @@ class WaveController extends GameComponent {
     Random random = Random();
     var rnd = random.nextInt(areas.length - 1) + 1;
     CrystalGameEnemy toSpawn = waves[currentWave][counter];
-    toSpawn.size = Vector2(tileSize/1.5, tileSize/1.5);
+    toSpawn.size = Vector2(tileSize / 1.5, tileSize / 1.5);
     toSpawn.position = areas[rnd].position;
 
-    if(!toSpawn.isDead){
+    if (!toSpawn.isDead) {
       gameRef.add(waves[currentWave][counter]);
     }
 
