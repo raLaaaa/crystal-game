@@ -7,6 +7,7 @@ import 'package:darkness_dungeon/player/knight.dart';
 
 import '../decoration/areas/target_crystal_area.dart';
 import '../enemies/goblin.dart';
+import '../enemies/imp.dart';
 import '../util/dialogs.dart';
 
 class WaveController extends GameComponent {
@@ -27,24 +28,52 @@ class WaveController extends GameComponent {
   void setupWaves() {
     List<CrystalGameEnemy> waveOne = [];
     waveOne.add(Goblin(Vector2(0, 0)));
-    // waveOne.add(Goblin(Vector2(0,0)));
-    // waveOne.add(Goblin(Vector2(0,0)));
-    // waveOne.add(Goblin(Vector2(0,0)));
-    // waveOne.add(Goblin(Vector2(0,0)));
-    // waveOne.add(Goblin(Vector2(0,0)));
-    // waveOne.add(Goblin(Vector2(0,0)));
-    // waveOne.add(Goblin(Vector2(0,0)));
-    // waveOne.add(Goblin(Vector2(0,0)));
-    // waveOne.add(Goblin(Vector2(0,0)));
-    // waveOne.add(Goblin(Vector2(0,0)));
-    // waveOne.add(Goblin(Vector2(0,0)));
+    waveOne.add(Goblin(Vector2(0, 0)));
+    waveOne.add(Goblin(Vector2(0, 0)));
+    waveOne.add(Goblin(Vector2(0, 0)));
     waves.add(waveOne);
 
-    List<CrystalGameEnemy> waveTwo = [];
-    waveTwo.add(Goblin(Vector2(0, 0)));
-    waveTwo.add(Goblin(Vector2(0, 0)));
-    waveTwo.add(Goblin(Vector2(0, 0)));
-    waves.add(waveTwo);
+    // List<CrystalGameEnemy> waveTwo = [];
+    // waveTwo.add(Goblin(Vector2(0, 0)));
+    // waveTwo.add(Goblin(Vector2(0, 0)));
+    // waveTwo.add(Goblin(Vector2(0, 0)));
+    // waveTwo.add(Goblin(Vector2(0, 0)));
+    // waveTwo.add(Goblin(Vector2(0, 0)));
+    // waveTwo.add(Goblin(Vector2(0, 0)));
+    // // waveTwo.add(Goblin(Vector2(0, 0)));
+    // // waveTwo.add(Goblin(Vector2(0, 0)));
+    // waves.add(waveTwo);
+
+    // List<CrystalGameEnemy> waveThree = [];
+    // waveThree.add(Imp(Vector2(0, 0)));
+    // waveThree.add(Imp(Vector2(0, 0)));
+    // waveThree.add(Imp(Vector2(0, 0)));
+    // waveThree.add(Imp(Vector2(0, 0)));
+    // waveThree.add(Imp(Vector2(0, 0)));
+    // waveThree.add(Imp(Vector2(0, 0)));
+    // waveThree.add(Imp(Vector2(0, 0)));
+    // waveThree.add(Imp(Vector2(0, 0)));
+    // waveThree.add(Imp(Vector2(0, 0)));
+    // waves.add(waveThree);
+
+    // List<CrystalGameEnemy> waveFour = [];
+    // waveFour.add(Imp(Vector2(0, 0)));
+    // waveFour.add(Goblin(Vector2(0, 0)));
+    // waveFour.add(Imp(Vector2(0, 0)));
+    // waveFour.add(Goblin(Vector2(0, 0)));
+    // waveFour.add(Imp(Vector2(0, 0)));
+    // waveFour.add(Goblin(Vector2(0, 0)));
+    // waveFour.add(Imp(Vector2(0, 0)));
+    // waveFour.add(Goblin(Vector2(0, 0)));
+    // waveFour.add(Imp(Vector2(0, 0)));
+    // waveFour.add(Goblin(Vector2(0, 0)));
+    // waveFour.add(Imp(Vector2(0, 0)));
+    // waveFour.add(Goblin(Vector2(0, 0)));
+    // waveFour.add(Imp(Vector2(0, 0)));
+    // waveFour.add(Imp(Vector2(0, 0)));
+    // waveFour.add(Imp(Vector2(0, 0)));
+    // waves.add(waveFour);
+
     counterLimit = waves[0].length;
   }
 
@@ -67,6 +96,7 @@ class WaveController extends GameComponent {
         if ((timeBetweenWaveChanges.limit - timeBetweenWaveChanges.current) <
             timingTreshold) {
           currentWave++;
+          counterLimit = waves[currentWave].length;
           counter = 0;
           timeBetweenWaveChanges.reset();
           timeBetweenWaveChanges.stop();
@@ -75,10 +105,6 @@ class WaveController extends GameComponent {
           setUntilNextWaveOfPlayer();
         }
         setCurrentWaveOfPlayer();
-
-        if (!(currentWave < waves.length - 1)) {
-          counterLimit = waves[currentWave].length;
-        }
       }
 
       if (timeBetweenUnitSpawns.finished) {

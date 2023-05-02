@@ -1,4 +1,6 @@
 import 'package:bonfire/bonfire.dart';
+import 'package:darkness_dungeon/enemies/behaviors/simple_behavior.dart';
+import 'package:darkness_dungeon/enemies/crystal_game_enemy.dart';
 import 'package:darkness_dungeon/main.dart';
 import 'package:darkness_dungeon/util/enemy_sprite_sheet.dart';
 import 'package:darkness_dungeon/util/functions.dart';
@@ -6,30 +8,30 @@ import 'package:darkness_dungeon/util/game_sprite_sheet.dart';
 import 'package:darkness_dungeon/util/sounds.dart';
 import 'package:flutter/material.dart';
 
-class Imp extends SimpleEnemy with ObjectCollision {
+import 'behaviors/simple_attack_only_behavior.dart';
+import 'mixins/crystal_eligible.dart';
+
+class Imp extends CrystalGameEnemy with ObjectCollision, SimpleAttackOnlyBehavior, MoveToPositionAlongThePath, UseBarLife {
   final Vector2 initPosition;
-  double attack = 10;
+  double attack = 25;
 
   Imp(this.initPosition)
       : super(
           animation: EnemySpriteSheet.impAnimations(),
           position: initPosition,
           size: Vector2.all(tileSize * 0.8),
-          speed: tileSize / 0.30,
-          life: 80,
-        ) {
+          speed: tileSize / 0.35,
+          life: 10,
+        ) {          
     setupCollision(
       CollisionConfig(
         collisions: [
           CollisionArea.rectangle(
             size: Vector2(
-              valueByTileSize(6),
-              valueByTileSize(6),
+              valueByTileSize(7),
+              valueByTileSize(7),
             ),
-            align: Vector2(
-              valueByTileSize(3),
-              valueByTileSize(5),
-            ),
+            align: Vector2(valueByTileSize(3), valueByTileSize(4)),
           ),
         ],
       ),
@@ -38,34 +40,13 @@ class Imp extends SimpleEnemy with ObjectCollision {
 
   @override
   void render(Canvas canvas) {
-    this.drawDefaultLifeBar(
-      canvas,
-      borderRadius: BorderRadius.circular(2),
-    );
     super.render(canvas);
   }
 
   @override
   void update(double dt) {
     super.update(dt);
-    this.seeAndMoveToPlayer(
-      radiusVision: tileSize * 5,
-      closePlayer: (player) {
-        execAttack();
-      },
-    );
-  }
-
-  void execAttack() {
-    this.simpleAttackMelee(
-      size: Vector2.all(tileSize * 0.62),
-      damage: attack,
-      interval: 300,
-      animationRight: EnemySpriteSheet.enemyAttackEffectRight(),
-      execute: () {
-        Sounds.attackEnemyMelee();
-      },
-    );
+    this.behave(dt, this);
   }
 
   @override
@@ -77,8 +58,19 @@ class Imp extends SimpleEnemy with ObjectCollision {
         size: Vector2(32, 32),
       ),
     );
-    removeFromParent();
     super.die();
+  }
+
+  void execAttack() {
+    this.simpleAttackMelee(
+      size: Vector2.all(tileSize * 0.62),
+      damage: attack,
+      interval: 800,
+      animationRight: EnemySpriteSheet.enemyAttackEffectRight(),
+      execute: () {
+        Sounds.attackEnemyMelee();
+      },
+    );
   }
 
   @override

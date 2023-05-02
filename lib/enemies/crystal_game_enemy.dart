@@ -2,7 +2,9 @@ import 'dart:ui';
 
 import 'package:darkness_dungeon/decoration/areas/target_crystal_area.dart';
 import 'package:darkness_dungeon/decoration/crystal.dart';
+import 'package:darkness_dungeon/util/images.dart';
 import 'package:flutter/material.dart';
+import 'package:flame/cache.dart';
 
 import '../main.dart';
 import '../util/enemy_sprite_sheet.dart';
@@ -68,14 +70,8 @@ abstract class CrystalGameEnemy extends SimpleEnemy
       color: Colors.lightBlueAccent.withOpacity(0.1),
     );
 
-      Paint p = Paint();
-      p.color = Colors.blueAccent;
-      canvas.drawRect(
-          Rect.fromCenter(
-              center: Offset(position.x + (size.x / 2), position.y - 10),
-              width: 24,
-              height: 24),
-          p);
+      GameImages.crystal.render(canvas, position: Vector2(position.x + (size.x / 4), y - 10), size: Vector2(18, 18)); 
+
     }
   }
 
