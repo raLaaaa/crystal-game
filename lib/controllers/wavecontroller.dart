@@ -7,6 +7,7 @@ import 'package:darkness_dungeon/player/knight.dart';
 
 import '../decoration/areas/target_crystal_area.dart';
 import '../enemies/goblin.dart';
+import '../util/dialogs.dart';
 
 class WaveController extends GameComponent {
   final timeBetweenUnitSpawns = Timer(0.5, repeat: false, autoStart: true);
@@ -54,50 +55,28 @@ class WaveController extends GameComponent {
       timeBetweenWaveChanges.update(dt);
 
       if (checkIfWaveIsFinished()) {
-
-        if(!timeBetweenWaveChanges.isRunning()) {
-          timeBetweenWaveChanges.start();
-
-          if (gameRef.player is Knight) {
-            Knight player = gameRef.player as Knight;
-            player.currentlyWaveChanging = true;
-          } 
-
+        if (checkIfGameIsWon()) {
+          finishGame();
         }
 
-        if((timeBetweenWaveChanges.limit - timeBetweenWaveChanges.current) < timingTreshold) {
+        if (!timeBetweenWaveChanges.isRunning()) {
+          timeBetweenWaveChanges.start();
+          setPlayerCurrentlyWaveChanging(true);
+        }
+
+        if ((timeBetweenWaveChanges.limit - timeBetweenWaveChanges.current) <
+            timingTreshold) {
           currentWave++;
           counter = 0;
           timeBetweenWaveChanges.reset();
           timeBetweenWaveChanges.stop();
-
-          if (gameRef.player is Knight) {
-            Knight player = gameRef.player as Knight;
-            player.currentlyWaveChanging = false;
-          }
-
-        }
-        else {
-          if (gameRef.player is Knight) {
-            Knight player = gameRef.player as Knight;
-            player.timeUntilNextWave = (timeBetweenWaveChanges.limit - timeBetweenWaveChanges.current);
-          } 
-        }
-
-        if (gameRef.player is Knight) {
-          Knight player = gameRef.player as Knight;
-          player.isOnCurrentWave = currentWave;
-        }
-
-        if (currentWave > waves.length - 1) {
-          Knight player = gameRef.player as Knight;
-          player.isOnCurrentWave = currentWave;
-          disableWaves = true;
-          print('YOU WON');
-          player.won = true;
-          timeBetweenUnitSpawns.stop();
-          return;
+          setPlayerCurrentlyWaveChanging(false);
         } else {
+          setUntilNextWaveOfPlayer();
+        }
+        setCurrentWaveOfPlayer();
+
+        if (!(currentWave < waves.length - 1)) {
           counterLimit = waves[currentWave].length;
         }
       }
@@ -113,6 +92,51 @@ class WaveController extends GameComponent {
     }
 
     super.update(dt);
+  }
+
+  void finishGame() {
+    Knight player = gameRef.player as Knight;
+    setCurrentWaveOfPlayer();
+    setPlayerCurrentlyWaveChanging(false);
+    disableWaves = true;
+    player.won = true;
+    timeBetweenUnitSpawns.stop();
+    Dialogs.showCongratulations(gameRef.context);
+    return;
+  }
+
+  void setPlayerCurrentlyWaveChanging(bool status) {
+    if (gameRef.player is Knight) {
+      Knight player = gameRef.player as Knight;
+      player.currentlyWaveChanging = status;
+    }
+  }
+
+  void setUntilNextWaveOfPlayer() {
+    if (gameRef.player is Knight) {
+      Knight player = gameRef.player as Knight;
+      player.timeUntilNextWave =
+          (timeBetweenWaveChanges.limit - timeBetweenWaveChanges.current);
+    }
+  }
+
+  void setCurrentWaveOfPlayer() {
+    if (gameRef.player is Knight) {
+      Knight player = gameRef.player as Knight;
+      player.isOnCurrentWave = currentWave;
+    }
+  }
+
+  bool checkIfGameIsWon() {
+    bool result = true;
+
+    waves[waves.length - 1].forEach((element) {
+      if (!element.isDead) {
+        result = false;
+      }
+    });
+
+    return result;
   }
 
   bool checkIfWaveIsFinished() {
