@@ -21,13 +21,6 @@ class _MenuState extends State<Menu> {
   bool showSplash = false;
   int currentPosition = 0;
   late async.Timer _timer;
-  List<Future<SpriteAnimation>> sprites = [
-    PlayerSpriteSheet.idleRight(),
-    EnemySpriteSheet.goblinIdleRight(),
-    EnemySpriteSheet.impIdleRight(),
-    EnemySpriteSheet.miniBossIdleRight(),
-    EnemySpriteSheet.bossIdleRight(),
-  ];
 
   @override
   void dispose() {
@@ -58,16 +51,13 @@ class _MenuState extends State<Menu> {
                     color: Colors.white, fontFamily: 'Normal', fontSize: 30.0),
               ),
               SizedBox(
-                height: 20.0,
+                height: 30.0,
               ),
-              if (sprites.isNotEmpty)
-                SizedBox(
-                  height: 100,
-                  width: 100,
-                  child: CustomSpriteAnimationWidget(
-                    animation: sprites[currentPosition],
-                  ),
-                ),
+              Image.asset(
+                "images/crystal_glow.gif",
+                height: 64.0,
+                width: 64.0,
+              ),
               SizedBox(
                 height: 30.0,
               ),
@@ -161,28 +151,28 @@ class _MenuState extends State<Menu> {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Text(
-                      getString('built_with'),
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'Normal',
-                          fontSize: 12.0),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        _launchURL(
-                            'https://github.com/RafaelBarbosatec/bonfire');
-                      },
-                      child: Text(
-                        'Bonfire',
-                        style: TextStyle(
-                          decoration: TextDecoration.underline,
-                          color: Colors.blue,
-                          fontFamily: 'Normal',
-                          fontSize: 12.0,
-                        ),
-                      ),
-                    )
+                    // Text(
+                    //   getString('built_with'),
+                    //   style: TextStyle(
+                    //       color: Colors.white,
+                    //       fontFamily: 'Normal',
+                    //       fontSize: 12.0),
+                    // ),
+                    // InkWell(
+                    //   onTap: () {
+                    //     _launchURL(
+                    //         'https://github.com/RafaelBarbosatec/bonfire');
+                    //   },
+                    //   child: Text(
+                    //     'Bonfire',
+                    //     style: TextStyle(
+                    //       decoration: TextDecoration.underline,
+                    //       color: Colors.blue,
+                    //       fontFamily: 'Normal',
+                    //       fontSize: 12.0,
+                    //     ),
+                    //   ),
+                    // )
                   ],
                 ),
               ),
@@ -200,20 +190,8 @@ class _MenuState extends State<Menu> {
         setState(() {
           showSplash = false;
         });
-        startTimer();
       },
     );
-  }
-
-  void startTimer() {
-    _timer = async.Timer.periodic(Duration(seconds: 2), (timer) {
-      setState(() {
-        currentPosition++;
-        if (currentPosition > sprites.length - 1) {
-          currentPosition = 0;
-        }
-      });
-    });
   }
 
   void _launchURL(String url) async {

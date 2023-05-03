@@ -67,7 +67,7 @@ class Crystal extends GameDecoration with Lighting, Movement, Sensor, ObjectColl
   @override
   void onContact(GameComponent collision) {
     if (collision is CrystalGameEnemy &&
-        !checkIfSomeOneAlreadyCarriesCrystal()) {
+        !checkIfSomeOneAlreadyCarriesCrystal() && collision.isAllowedToPickUpCrystal) {
       collision.isCarryCrystal = true;
       removeFromParent();
     }

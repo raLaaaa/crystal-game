@@ -20,6 +20,7 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision {
   bool currentlyWaveChanging = false;
   double timeUntilNextWave = 0;
   bool won = false;
+  int collectedCoins = 0;
   bool showObserveEnemy = false;
 
   Knight(Vector2 position)
@@ -202,6 +203,14 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision {
       ),
     );
     super.receiveDamage(attacker, damage, id);
+  }
+
+  int getCollectedCoins(){
+    return this.collectedCoins;
+  }
+
+  void increaseCollectedCoins() {
+    this.collectedCoins++;
   }
 
   void _showEmote({String emote = 'emote/emote_exclamacao.png'}) {

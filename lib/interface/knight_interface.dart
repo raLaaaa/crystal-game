@@ -19,6 +19,7 @@ class KnightInterface extends GameInterface {
     try {
       _drawKey(canvas);
       _drawWave(canvas);
+      _drawCoins(canvas);
       _drawNextWaveIn(canvas);
     } catch (e) {}
     super.render(canvas);
@@ -72,6 +73,24 @@ class KnightInterface extends GameInterface {
           textDirection: TextDirection.ltr);
       tp.layout();
       tp.paint(c, new Offset(150, 20));
+    }
+  }
+
+  void _drawCoins(Canvas c) {
+    if (gameRef.player != null) {
+      Knight p = gameRef.player as Knight;
+      TextSpan span;
+
+      span = new TextSpan(
+          style: new TextStyle(color: Colors.blue[800]),
+          text: 'Current Coins: ' + p.collectedCoins.toString());
+
+      TextPainter tp = new TextPainter(
+          text: span,
+          textAlign: TextAlign.left,
+          textDirection: TextDirection.ltr);
+      tp.layout();
+      tp.paint(c, new Offset(150, 40));
     }
   }
 }

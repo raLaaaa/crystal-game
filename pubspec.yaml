@@ -45,6 +45,7 @@ flutter:
     - assets/images/enemy/
     - assets/images/enemy/goblin/
     - assets/images/enemy/imp/
+    - assets/images/enemy/small_mushroom/
     - assets/images/enemy/mini_boss/
     - assets/images/enemy/boss/
     - assets/images/player/

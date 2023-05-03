@@ -17,6 +17,15 @@ class GameSpriteSheet {
           textureSize: Vector2(16, 16),
         ),
       );
+
+  static Future<SpriteAnimation> coin() => SpriteAnimation.load(
+        'items/coin.png',
+        SpriteAnimationData.sequenced(
+          amount: 5,
+          stepTime: 0.1,
+          textureSize: Vector2(16, 16),
+        ),
+      );
   static Future<SpriteAnimation> torch() => SpriteAnimation.load(
         'items/torch_spritesheet.png',
         SpriteAnimationData.sequenced(

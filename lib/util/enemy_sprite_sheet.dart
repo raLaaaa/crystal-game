@@ -164,6 +164,41 @@ class EnemySpriteSheet {
         ),
       );
 
+  static SimpleDirectionAnimation smallMushroomAnimations() => SimpleDirectionAnimation(
+        idleLeft: SpriteAnimation.load(
+          'enemy/small_mushroom/mushroom_idle_right.png',
+          SpriteAnimationData.sequenced(
+            amount: 4,
+            stepTime: 0.1,
+            textureSize: Vector2(16, 16),
+          ),
+        ),
+        idleRight: SpriteAnimation.load(
+          'enemy/small_mushroom/mushroom_idle.png',
+          SpriteAnimationData.sequenced(
+            amount: 4,
+            stepTime: 0.1,
+            textureSize: Vector2(16, 16),
+          ),
+        ),
+        runRight: SpriteAnimation.load(
+          'enemy/small_mushroom/mushroom_run_left.png',
+          SpriteAnimationData.sequenced(
+            amount: 4,
+            stepTime: 0.1,
+            textureSize: Vector2(16, 16),
+          ),
+        ),
+        runLeft: SpriteAnimation.load(
+          'enemy/small_mushroom/mushroom_run_right.png',
+          SpriteAnimationData.sequenced(
+            amount: 4,
+            stepTime: 0.1,
+            textureSize: Vector2(16, 16),
+          ),
+        ),
+      );      
+
   static Future<SpriteAnimation> miniBossIdleRight() => SpriteAnimation.load(
         'enemy/mini_boss/mini_boss_idle.png',
         SpriteAnimationData.sequenced(

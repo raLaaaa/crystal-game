@@ -1,6 +1,8 @@
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:darkness_dungeon/decoration/areas/target_crystal_area.dart';
+import 'package:darkness_dungeon/decoration/coin.dart';
 import 'package:darkness_dungeon/decoration/crystal.dart';
 import 'package:darkness_dungeon/util/images.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +15,11 @@ import 'mixins/crystal_eligible.dart';
 import 'package:bonfire/bonfire.dart';
 
 abstract class CrystalGameEnemy extends SimpleEnemy
-    with CrystalEligible, Lighting {
-  LightingConfig lightingConfig = LightingConfig(radius: 0, color: Colors.black);
+    with CrystalEligible, Lighting, ObjectCollision {
+  LightingConfig lightingConfig =
+      LightingConfig(radius: 0, color: Colors.black);
+
+  late int chanceToDropACoin;
 
   CrystalGameEnemy({
     required Vector2 position,
@@ -22,6 +27,7 @@ abstract class CrystalGameEnemy extends SimpleEnemy
     SimpleDirectionAnimation? animation,
     double life = 100,
     double speed = 100,
+    chanceToDropACoin = 50,
     Direction initDirection = Direction.right,
     ReceivesAttackFromEnum receivesAttackFrom =
         ReceivesAttackFromEnum.PLAYER_AND_ALLY,
@@ -35,6 +41,7 @@ abstract class CrystalGameEnemy extends SimpleEnemy
     this.isCarryCrystal = false;
     this.hasReachedFinish = false;
     this.animation = animation;
+    this.chanceToDropACoin = chanceToDropACoin;
     lastDirection = initDirection;
     lastDirectionHorizontal =
         initDirection == Direction.left ? Direction.left : Direction.right;
@@ -59,19 +66,19 @@ abstract class CrystalGameEnemy extends SimpleEnemy
     super.render(canvas);
 
     if (isCarryCrystal) {
+      lightingConfig = LightingConfig(
+        radius: width * 3.5,
+        blurBorder: width * 2,
+        pulseSpeed: 0.35,
+        withPulse: true,
+        pulseCurve: Curves.bounceIn,
+        pulseVariation: 0.4,
+        color: Colors.lightBlueAccent.withOpacity(0.1),
+      );
 
-    lightingConfig = LightingConfig(
-      radius: width * 3.5,
-      blurBorder: width * 2,
-      pulseSpeed: 0.35,
-      withPulse: true,
-      pulseCurve: Curves.bounceIn,
-      pulseVariation: 0.4,
-      color: Colors.lightBlueAccent.withOpacity(0.1),
-    );
-
-      GameImages.crystal.render(canvas, position: Vector2(position.x + (size.x / 4), y - 10), size: Vector2(18, 18)); 
-
+      GameImages.crystal.render(canvas,
+          position: Vector2(position.x + (size.x / 4), y - 10),
+          size: Vector2(18, 18));
     }
   }
 
@@ -79,6 +86,13 @@ abstract class CrystalGameEnemy extends SimpleEnemy
   void die() {
     if (isCarryCrystal) {
       gameRef.add(Crystal(position));
+    }
+
+    Random rnd = Random();
+    var result = rnd.nextInt(100);
+
+    if (result <= chanceToDropACoin) {
+      gameRef.add(Coin(position));
     }
 
     removeFromParent();
@@ -95,6 +109,11 @@ abstract class CrystalGameEnemy extends SimpleEnemy
     });
 
     return crystal;
+  }
+
+  @override
+  bool onCollision(GameComponent component, bool active) {
+    return super.onCollision(component, active);
   }
 
   List<TargetCrystalArea> getAreasOfCurrentMap() {

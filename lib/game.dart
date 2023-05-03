@@ -61,6 +61,7 @@ class _GameState extends State<Game> implements GameListener {
     Size sizeScreen = MediaQuery.of(context).size;
     tileSize = max(sizeScreen.height, sizeScreen.width) / 15;
 
+
     var joystick = Joystick(
       directional: JoystickDirectional(
         spriteBackgroundDirectional: Sprite.load('joystick_background.png'),

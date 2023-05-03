@@ -10,7 +10,11 @@ import 'package:flutter/material.dart';
 
 import 'mixins/crystal_eligible.dart';
 
-class Goblin extends CrystalGameEnemy with ObjectCollision, SimpleBehavior, MoveToPositionAlongThePath, UseBarLife {
+class Goblin extends CrystalGameEnemy
+    with
+        SimpleBehavior,
+        MoveToPositionAlongThePath,
+        UseBarLife {
   final Vector2 initPosition;
   double attack = 25;
 
@@ -20,8 +24,9 @@ class Goblin extends CrystalGameEnemy with ObjectCollision, SimpleBehavior, Move
           position: initPosition,
           size: Vector2.all(tileSize * 0.8),
           speed: tileSize / 0.55,
-          life: 40,
-        ) {          
+          life: 20,
+          chanceToDropACoin: 50,
+        ) {
     setupCollision(
       CollisionConfig(
         collisions: [
@@ -46,6 +51,20 @@ class Goblin extends CrystalGameEnemy with ObjectCollision, SimpleBehavior, Move
   void update(double dt) {
     super.update(dt);
     this.behave(dt, this);
+  }
+
+  @override
+  bool onCollision(GameComponent component, bool active) {
+    if (component is Player) {
+      print('Player collided!');
+      // Do anything you want
+    }
+
+    // active = true : this component enter in collision with param component
+    // active = false : param component enter in collision with this
+
+    // if return `false` so the object will not collide with anything or block the passage
+    return super.onCollision(component, active);
   }
 
   @override
