@@ -13,16 +13,16 @@ import 'package:flutter/material.dart';
 import 'behaviors/simple_attack_only_behavior.dart';
 import 'mixins/crystal_eligible.dart';
 
-class SmallMushroom extends CrystalGameEnemy with SimpleOnlcyCrystalBehavior, MoveToPositionAlongThePath, UseBarLife {
+class SmallSkelet extends CrystalGameEnemy with SimpleOnlcyCrystalBehavior, MoveToPositionAlongThePath, UseBarLife {
   final Vector2 initPosition;
   double attack = 25;
 
-  SmallMushroom(this.initPosition)
+  SmallSkelet(this.initPosition)
       : super(
-          animation: EnemySpriteSheet.smallMushroomAnimations(),
+          animation: EnemySpriteSheet.smallSkeletAnimations(),
           position: initPosition,
           size: Vector2.all(tileSize * 0.8),
-          speed: tileSize / 0.65,
+          speed: tileSize / 0.55,
           life: 10,
           chanceToDropACoin: 100
         ) {          

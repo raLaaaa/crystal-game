@@ -46,6 +46,7 @@ class _GameState extends State<Game> implements GameListener {
   void initState() {
     _controller = CrystalGameController()..addListener(this);
     _controller.add(WaveController());
+    _controller.add(FpsTextComponent(position: Vector2(400,40)));
     Sounds.playBackgroundSound();
     super.initState();
   }
@@ -185,4 +186,6 @@ class _GameState extends State<Game> implements GameListener {
       }
     }
   }
+
+  
 }

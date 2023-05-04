@@ -6,12 +6,24 @@ import 'package:flutter/material.dart';
 
 class KnightInterface extends GameInterface {
   late Sprite key;
+  late FpsTextComponent fps;
+  bool showFPS = true;
+
 
   @override
   Future<void> onLoad() async {
     key = await Sprite.load('items/key_silver.png');
+    fps = FpsTextComponent(position: Vector2(gameRef.size.x - 100, 20));
+    if(showFPS) {
+      gameRef.add(fps);
+    }
     add(bar_life_component.BarLifeComponent());
     return super.onLoad();
+  }
+
+  @override
+  void update(dt) {
+    super.update(dt);
   }
 
   @override

@@ -2,12 +2,11 @@ import 'dart:math';
 
 import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/enemies/crystal_game_enemy.dart';
-import 'package:darkness_dungeon/enemies/small_mushroom.dart';
+import 'package:darkness_dungeon/enemies/small_skelet.dart';
 import 'package:darkness_dungeon/main.dart';
 import 'package:darkness_dungeon/player/knight.dart';
 
 import '../decoration/areas/target_crystal_area.dart';
-import '../enemies/goblin.dart';
 import '../enemies/imp.dart';
 import '../util/dialogs.dart';
 
@@ -28,11 +27,22 @@ class WaveController extends GameComponent {
 
   void setupWaves() {
     List<CrystalGameEnemy> waveOne = [];
-    waveOne.add(SmallMushroom(Vector2(0, 0)));
-    waveOne.add(SmallMushroom(Vector2(0, 0)));
-    waveOne.add(SmallMushroom(Vector2(0, 0)));
-    waveOne.add(SmallMushroom(Vector2(0, 0)));
-    waveOne.add(SmallMushroom(Vector2(0, 0)));
+    waveOne.add(SmallSkelet(Vector2(0, 0)));
+    waveOne.add(SmallSkelet(Vector2(0, 0)));
+    waveOne.add(SmallSkelet(Vector2(0, 0)));
+    waveOne.add(SmallSkelet(Vector2(0, 0)));
+    waveOne.add(SmallSkelet(Vector2(0, 0)));
+    // waveOne.add(SmallSkelet(Vector2(0, 0)));
+    // waveOne.add(SmallSkelet(Vector2(0, 0)));
+    // waveOne.add(SmallSkelet(Vector2(0, 0)));
+    // waveOne.add(SmallSkelet(Vector2(0, 0)));
+    // waveOne.add(SmallSkelet(Vector2(0, 0)));
+    // waveOne.add(SmallSkelet(Vector2(0, 0)));
+    // waveOne.add(SmallSkelet(Vector2(0, 0)));
+    // waveOne.add(SmallSkelet(Vector2(0, 0)));
+    // waveOne.add(SmallSkelet(Vector2(0, 0)));
+    // waveOne.add(SmallSkelet(Vector2(0, 0)));
+    // waveOne.add(SmallSkelet(Vector2(0, 0)));
     // waveOne.add(Goblin(Vector2(0, 0)));
     // waveOne.add(Goblin(Vector2(0, 0)));
     // waveOne.add(Goblin(Vector2(0, 0)));
@@ -196,13 +206,13 @@ class WaveController extends GameComponent {
 
     if (areas[rnd].width > areas[rnd].height) {
       Random widthRnd = Random();
-      var x = widthRnd.nextInt(areas[rnd].width.toInt() - 20) +
+      var x = widthRnd.nextInt(areas[rnd].width.toInt() - 30) +
           areas[rnd].position.x;
       Vector2 spawnPos = Vector2(x, areas[rnd].position.y);
       toSpawn.position = spawnPos;
     } else {
       Random widthRnd = Random();
-      var y = widthRnd.nextInt(areas[rnd].height.toInt() - 20) +
+      var y = widthRnd.nextInt(areas[rnd].height.toInt() - 30) +
           areas[rnd].position.y;
       Vector2 spawnPos = Vector2(areas[rnd].position.x, y);
       toSpawn.position = spawnPos;

@@ -164,9 +164,9 @@ class EnemySpriteSheet {
         ),
       );
 
-  static SimpleDirectionAnimation smallMushroomAnimations() => SimpleDirectionAnimation(
+  static SimpleDirectionAnimation smallSkeletAnimations() => SimpleDirectionAnimation(
         idleLeft: SpriteAnimation.load(
-          'enemy/small_mushroom/mushroom_idle_right.png',
+          'enemy/small_skelet/skelet_idle_left.png',
           SpriteAnimationData.sequenced(
             amount: 4,
             stepTime: 0.1,
@@ -174,7 +174,7 @@ class EnemySpriteSheet {
           ),
         ),
         idleRight: SpriteAnimation.load(
-          'enemy/small_mushroom/mushroom_idle.png',
+          'enemy/small_skelet/skelet_idle_right.png',
           SpriteAnimationData.sequenced(
             amount: 4,
             stepTime: 0.1,
@@ -182,7 +182,7 @@ class EnemySpriteSheet {
           ),
         ),
         runRight: SpriteAnimation.load(
-          'enemy/small_mushroom/mushroom_run_left.png',
+          'enemy/small_skelet/skelet_run_right.png',
           SpriteAnimationData.sequenced(
             amount: 4,
             stepTime: 0.1,
@@ -190,7 +190,7 @@ class EnemySpriteSheet {
           ),
         ),
         runLeft: SpriteAnimation.load(
-          'enemy/small_mushroom/mushroom_run_right.png',
+          'enemy/small_skelet/skelet_run_left.png',
           SpriteAnimationData.sequenced(
             amount: 4,
             stepTime: 0.1,
