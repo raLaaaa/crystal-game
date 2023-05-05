@@ -43,7 +43,14 @@ class GameSpriteSheet {
           textureSize: Vector2(32, 32),
         ),
       );
-
+  static Future<SpriteAnimation> purple_power() => SpriteAnimation.load(
+        'purple_power.png',
+        SpriteAnimationData.sequenced(
+          amount: 9,
+          stepTime: 0.1,
+          textureSize: Vector2(32, 32),
+        ),
+      );
   static Future<SpriteAnimation> smokeExplosion() => SpriteAnimation.load(
         'smoke_explosin.png',
         SpriteAnimationData.sequenced(

@@ -19,13 +19,11 @@ class Menu extends StatefulWidget {
 
 class _MenuState extends State<Menu> {
   bool showSplash = false;
-  int currentPosition = 0;
-  late async.Timer _timer;
+
 
   @override
   void dispose() {
     Sounds.stopBackgroundSound();
-    _timer.cancel();
     super.dispose();
   }
 

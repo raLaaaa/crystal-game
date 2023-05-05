@@ -46,7 +46,7 @@ class _GameState extends State<Game> implements GameListener {
   void initState() {
     _controller = CrystalGameController()..addListener(this);
     _controller.add(WaveController());
-    _controller.add(FpsTextComponent(position: Vector2(400,40)));
+    _controller.add(FpsTextComponent(position: Vector2(400, 40)));
     Sounds.playBackgroundSound();
     super.initState();
   }
@@ -62,7 +62,6 @@ class _GameState extends State<Game> implements GameListener {
     Size sizeScreen = MediaQuery.of(context).size;
     tileSize = max(sizeScreen.height, sizeScreen.width) / 15;
 
-
     var joystick = Joystick(
       directional: JoystickDirectional(
         spriteBackgroundDirectional: Sprite.load('joystick_background.png'),
@@ -77,6 +76,13 @@ class _GameState extends State<Game> implements GameListener {
           spritePressed: Sprite.load('joystick_atack_selected.png'),
           size: 80,
           margin: EdgeInsets.only(bottom: 50, right: 50),
+        ),
+        JoystickAction(
+          actionId: 1,
+          sprite: Sprite.load('joystick_atack_range.png'),
+          spritePressed: Sprite.load('joystick_atack_range_selected.png'),
+          size: 50,
+          margin: EdgeInsets.only(bottom: 50, right: 160),
         ),
         JoystickAction(
           actionId: 1,
@@ -169,7 +175,6 @@ class _GameState extends State<Game> implements GameListener {
 
   @override
   void updateGame() {
-    
     _controller.visibleEnemies?.forEach((element) {
       if (element is CrystalGameEnemy && element.hasReachedFinish) {
         if (!showGameOver) {
@@ -186,6 +191,4 @@ class _GameState extends State<Game> implements GameListener {
       }
     }
   }
-
-  
 }
