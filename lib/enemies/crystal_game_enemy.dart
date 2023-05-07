@@ -102,7 +102,7 @@ abstract class CrystalGameEnemy extends SimpleEnemy
   Crystal? getCrystalOfCurrentMap() {
     var crystal;
 
-    gameRef.visibleComponents().forEach((element) {
+    gameRef.decorations().forEach((element) {
       if (element is Crystal) {
         crystal = element;
       }
@@ -119,7 +119,7 @@ abstract class CrystalGameEnemy extends SimpleEnemy
   List<TargetCrystalArea> getAreasOfCurrentMap() {
     var areas = <TargetCrystalArea>[];
 
-    gameRef.visibleComponents().forEach((element) {
+    gameRef.decorations().forEach((element) {
       if (element is TargetCrystalArea) {
         areas.add(element);
       }

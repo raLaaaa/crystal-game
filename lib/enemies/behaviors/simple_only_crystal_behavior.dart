@@ -9,22 +9,23 @@ import '../../main.dart';
 import '../goblin.dart';
 
 mixin SimpleOnlcyCrystalBehavior on CrystalGameEnemy {
-
   void behave(double dt, CrystalGameEnemy enemy) {
     super.update(dt);
 
     Crystal? crystal = getCrystalOfCurrentMap();
-    List<TargetCrystalArea> areas = getAreasOfCurrentMap();
 
     if (crystal != null) {
       this.followComponent(crystal, dt, closeComponent: (c) {});
       this.moveFromDirection(this.lastDirection, speedVector: Vector2(50, 30));
     } else if (enemy.isCarryCrystal) {
+      List<TargetCrystalArea> areas = getAreasOfCurrentMap();
       TargetCrystalArea? closest = _findClosestArea(areas);
       this.followComponent(closest!, dt, closeComponent: (c) {});
       this.moveFromDirection(this.lastDirection, speedVector: Vector2(50, 30));
-    } 
-
+    } else {
+      this.seeAndMoveToPlayer(
+          radiusVision: tileSize * 20, closePlayer: (player) {});
+    }
   }
 
   TargetCrystalArea? _findClosestArea(List<TargetCrystalArea> areas) {

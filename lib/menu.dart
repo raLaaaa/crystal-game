@@ -51,8 +51,9 @@ class _MenuState extends State<Menu> {
               SizedBox(
                 height: 30.0,
               ),
+
               Image.asset(
-                "images/crystal_glow.gif",
+                "assets/images/crystal_glow.gif",
                 height: 64.0,
                 width: 64.0,
               ),

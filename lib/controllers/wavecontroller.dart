@@ -11,7 +11,7 @@ import '../enemies/imp.dart';
 import '../util/dialogs.dart';
 
 class WaveController extends GameComponent {
-  final timeBetweenUnitSpawns = Timer(0.5, repeat: false, autoStart: true);
+  final timeBetweenUnitSpawns = Timer(1.25, repeat: false, autoStart: true);
   final timeBetweenWaveChanges = Timer(5, repeat: false, autoStart: false);
   final timingTreshold = .200;
   int counter = 0;

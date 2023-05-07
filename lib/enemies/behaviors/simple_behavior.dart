@@ -14,7 +14,6 @@ mixin SimpleBehavior on CrystalGameEnemy {
     super.update(dt);
 
     Crystal? crystal = getCrystalOfCurrentMap();
-    List<TargetCrystalArea> areas = getAreasOfCurrentMap();
 
 
     if(enemy.position.distanceTo(gameRef.player!.position) < 35 ) {
@@ -26,6 +25,7 @@ mixin SimpleBehavior on CrystalGameEnemy {
       this.followComponent(crystal, dt, closeComponent: (c) {});
       this.moveFromDirection(this.lastDirection, speedVector: Vector2(50, 30));
     } else if (enemy.isCarryCrystal) {
+      List<TargetCrystalArea> areas = getAreasOfCurrentMap();
       TargetCrystalArea? closest = _findClosestArea(areas);
       this.followComponent(closest!, dt, closeComponent: (c) {});
       this.moveFromDirection(this.lastDirection, speedVector: Vector2(50, 30));
