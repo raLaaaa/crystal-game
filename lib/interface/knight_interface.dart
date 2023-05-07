@@ -29,11 +29,13 @@ class KnightInterface extends GameInterface {
   @override
   void render(Canvas canvas) {
     try {
-      _drawKey(canvas);
-      _drawWave(canvas);
-      _drawCoins(canvas);
-      _drawNextWaveIn(canvas);
-    } catch (e) {}
+     _drawKey(canvas);
+     _drawWave(canvas);
+     _drawCoins(canvas);
+     _drawNextWaveIn(canvas);
+    } catch (e) {
+      print(e);
+    }
     super.render(canvas);
   }
 

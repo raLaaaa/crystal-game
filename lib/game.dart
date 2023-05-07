@@ -68,6 +68,7 @@ class _GameState extends State<Game> implements GameListener {
         spriteKnobDirectional: Sprite.load('joystick_knob.png'),
         size: 100,
         isFixed: false,
+
       ),
       actions: [
         JoystickAction(

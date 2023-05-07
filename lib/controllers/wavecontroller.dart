@@ -27,11 +27,11 @@ class WaveController extends GameComponent {
 
   void setupWaves() {
     List<CrystalGameEnemy> waveOne = [];
-    waveOne.add(SmallSkelet(Vector2(0, 0)));
-    waveOne.add(SmallSkelet(Vector2(0, 0)));
-    waveOne.add(SmallSkelet(Vector2(0, 0)));
-    waveOne.add(SmallSkelet(Vector2(0, 0)));
-    waveOne.add(SmallSkelet(Vector2(0, 0)));
+    // waveOne.add(SmallSkelet(Vector2(0, 0)));
+    // waveOne.add(SmallSkelet(Vector2(0, 0)));
+    // waveOne.add(SmallSkelet(Vector2(0, 0)));
+    // waveOne.add(SmallSkelet(Vector2(0, 0)));
+    // waveOne.add(SmallSkelet(Vector2(0, 0)));
     // waveOne.add(SmallSkelet(Vector2(0, 0)));
     // waveOne.add(SmallSkelet(Vector2(0, 0)));
     // waveOne.add(SmallSkelet(Vector2(0, 0)));

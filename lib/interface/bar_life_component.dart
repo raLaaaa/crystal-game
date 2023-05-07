@@ -37,7 +37,9 @@ class BarLifeComponent extends InterfaceComponent {
     try {
       _drawLife(c);
       _drawStamina(c);
-    } catch (e) {}
+    } catch (e) {
+      print(e);
+    }
     super.render(c);
   }
 
