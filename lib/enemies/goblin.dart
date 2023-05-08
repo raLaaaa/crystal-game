@@ -24,7 +24,7 @@ class Goblin extends CrystalGameEnemy
           position: initPosition,
           size: Vector2.all(tileSize * 0.8),
           speed: tileSize / 0.55,
-          life: 20,
+          life: 40,
           chanceToDropACoin: 50,
         ) {
     setupCollision(
