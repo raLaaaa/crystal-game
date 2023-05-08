@@ -78,7 +78,7 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision {
 
     if (event.id == LogicalKeyboardKey.digit2.keyId &&
         event.event == ActionEvent.DOWN) {
-      print('ABC');
+      shockNearestEnemy();
     }
 
     if (event.id == LogicalKeyboardKey.digit3.keyId &&
@@ -109,24 +109,36 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision {
   }
 
   void shockNearestEnemy() {
-    var enemy = gameRef.visibleEnemies().firstWhere(
-        (element) => this.position.distanceTo(element.position) < 30);
+    var enemy; 
+    const maxDist = 250;
+    const dmg = 100;
 
-    gameRef.add(
-      AnimatedFollowerObject(
-        animation: SpriteAnimation.load(
-          'assets/purple_power.png',
-          SpriteAnimationData.sequenced(
-            amount: 8,
-            stepTime: 0.1,
-            textureSize: Vector2(32, 32),
+    gameRef.visibleEnemies().forEach((element) {
+        if(element.position.distanceTo(this.position) < maxDist) {
+          enemy = element;
+        }
+    });
+
+    if (enemy != null) {
+      gameRef.add(
+        AnimatedFollowerObject(
+          animation: SpriteAnimation.load(
+            'purple_power.png',
+            SpriteAnimationData.sequenced(
+              amount: 8,
+              stepTime: 0.1,
+              textureSize: Vector2(32, 32),
+            ),
           ),
+          target: enemy,
+          size: enemy.size,
+          positionFromTarget: Vector2(0, ((enemy.size.y / 4))),
         ),
-        target: enemy,
-        size: Vector2(32, 32),
-        positionFromTarget: Vector2(18, -6),
-      ),
-    );
+      );
+      
+      enemy.receiveDamage(AttackFromEnum.PLAYER_OR_ALLY, dmg, 0);
+
+    }
   }
 
   void actionAttack() {

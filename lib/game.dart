@@ -112,7 +112,7 @@ class _GameState extends State<Game> implements GameListener {
       color: Colors.transparent,
       child: BonfireWidget(
         gameController: _controller,
-        showCollisionArea: true,
+        showCollisionArea: false,
         joystick: joystick,
         player: Knight(
           Vector2(12 * tileSize, 6 * tileSize),

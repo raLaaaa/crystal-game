@@ -205,20 +205,31 @@ class WaveController extends GameComponent {
     var rnd = random.nextInt(areas.length - 1);
     CrystalGameEnemy toSpawn = waves[currentWave][counter];
 
-    if(!(toSpawn is Dummy)) {
+    if (!(toSpawn is Dummy)) {
       toSpawn.size = Vector2(tileSize / 1.5, tileSize / 1.5);
     }
 
     if (areas[rnd].width > areas[rnd].height) {
       Random widthRnd = Random();
-      var x = widthRnd.nextInt(areas[rnd].width.toInt() - 30) +
-          areas[rnd].position.x;
+      var x = 0.0;
+      if (toSpawn.size.x > tileSize) {
+        x = areas[rnd].position.x + (areas[rnd].width.toInt() / 3);
+               
+      } else {
+        x = widthRnd.nextInt(areas[rnd].width.toInt() - 30) +
+            areas[rnd].position.x;
+      }
       Vector2 spawnPos = Vector2(x, areas[rnd].position.y);
       toSpawn.position = spawnPos;
     } else {
       Random widthRnd = Random();
-      var y = widthRnd.nextInt(areas[rnd].height.toInt() - 30) +
+      var y = 0.0;
+      if (toSpawn.size.y > tileSize) {
+        y = areas[rnd].position.y + (areas[rnd].height.toInt() / 3);
+      } else {
+        y = widthRnd.nextInt(areas[rnd].height.toInt() - 30) +
           areas[rnd].position.y;
+      }
       Vector2 spawnPos = Vector2(areas[rnd].position.x, y);
       toSpawn.position = spawnPos;
     }
