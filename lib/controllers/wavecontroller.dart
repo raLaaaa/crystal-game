@@ -71,6 +71,13 @@ class WaveController extends GameComponent {
     waveThree.add(Imp(Vector2(0, 0)));
     waveThree.add(Imp(Vector2(0, 0)));
     waveThree.add(Imp(Vector2(0, 0)));
+    waveOne.add(SmallSkelet(Vector2(0, 0)));
+    waveOne.add(SmallSkelet(Vector2(0, 0)));
+    waveOne.add(SmallSkelet(Vector2(0, 0)));
+    waveOne.add(SmallSkelet(Vector2(0, 0)));
+    waveOne.add(SmallSkelet(Vector2(0, 0)));
+    waveOne.add(SmallSkelet(Vector2(0, 0)));
+    waveOne.add(SmallSkelet(Vector2(0, 0)));
     // waveThree.add(Imp(Vector2(0, 0)));
     waves.add(waveThree);
 
