@@ -75,7 +75,7 @@ class WaveController extends GameComponent {
     waves.add(waveThree);
 
     List<CrystalGameEnemy> waveFour = [];
-    // waveFour.add(Imp(Vector2(0, 0)));
+    waveFour.add(Imp(Vector2(0, 0)));
     waveOne.add(Dummy(Vector2(0, 0)));
     // waveFour.add(Goblin(Vector2(0, 0)));
     // waveFour.add(Imp(Vector2(0, 0)));
