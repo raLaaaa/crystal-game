@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 
 class MiniBoss extends SimpleEnemy with ObjectCollision {
   final Vector2 initPosition;
-  double attack = 50;
+  double attack = 50; 
   bool _seePlayerClose = false;
 
   MiniBoss(this.initPosition)

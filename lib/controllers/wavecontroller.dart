@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/enemies/crystal_game_enemy.dart';
+import 'package:darkness_dungeon/enemies/dummy.dart';
 import 'package:darkness_dungeon/enemies/small_skelet.dart';
 import 'package:darkness_dungeon/main.dart';
 import 'package:darkness_dungeon/player/knight.dart';
@@ -27,6 +28,7 @@ class WaveController extends GameComponent {
 
   void setupWaves() {
     List<CrystalGameEnemy> waveOne = [];
+    waveOne.add(Dummy(Vector2(0, 0)));
     // waveOne.add(SmallSkelet(Vector2(0, 0)));
     // waveOne.add(SmallSkelet(Vector2(0, 0)));
     // waveOne.add(SmallSkelet(Vector2(0, 0)));
@@ -202,7 +204,10 @@ class WaveController extends GameComponent {
     Random random = Random();
     var rnd = random.nextInt(areas.length - 1);
     CrystalGameEnemy toSpawn = waves[currentWave][counter];
-    toSpawn.size = Vector2(tileSize / 1.5, tileSize / 1.5);
+
+    if(!(toSpawn is Dummy)) {
+      toSpawn.size = Vector2(tileSize / 1.5, tileSize / 1.5);
+    }
 
     if (areas[rnd].width > areas[rnd].height) {
       Random widthRnd = Random();

@@ -164,6 +164,41 @@ class EnemySpriteSheet {
         ),
       );
 
+    static SimpleDirectionAnimation golemAnimations() => SimpleDirectionAnimation(
+        idleLeft: SpriteAnimation.load(
+          'enemy/golem/golem_idle_left.png',
+          SpriteAnimationData.sequenced(
+            amount: 6,
+            stepTime: 0.1,
+            textureSize: Vector2(64, 64),
+          ),
+        ),
+        idleRight: SpriteAnimation.load(
+          'enemy/golem/golem_idle_right.png',
+          SpriteAnimationData.sequenced(
+            amount: 6,
+            stepTime: 0.1,
+            textureSize: Vector2(64, 64),
+          ),
+        ),
+        runRight: SpriteAnimation.load(
+          'enemy/golem/golem_walk_right.png',
+          SpriteAnimationData.sequenced(
+            amount: 6,
+            stepTime: 0.1,
+            textureSize: Vector2(64, 64),
+          ),
+        ),
+        runLeft: SpriteAnimation.load(
+           'enemy/golem/golem_walk_left.png',
+          SpriteAnimationData.sequenced(
+            amount: 6,
+            stepTime: 0.1,
+            textureSize: Vector2(64, 64),
+          ),
+        ),
+      );  
+
   static SimpleDirectionAnimation smallSkeletAnimations() => SimpleDirectionAnimation(
         idleLeft: SpriteAnimation.load(
           'enemy/small_skelet/skelet_idle_left.png',

@@ -71,9 +71,19 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision {
       actionAttack();
     }
 
-    if (event.id == LogicalKeyboardKey.keyZ.keyId &&
+    if (event.id == LogicalKeyboardKey.digit1.keyId &&
         event.event == ActionEvent.DOWN) {
       actionAttackRange();
+    }
+
+    if (event.id == LogicalKeyboardKey.digit2.keyId &&
+        event.event == ActionEvent.DOWN) {
+      print('ABC');
+    }
+
+    if (event.id == LogicalKeyboardKey.digit3.keyId &&
+        event.event == ActionEvent.DOWN) {
+      print('ABC');
     }
 
     if (event.id == 1 && event.event == ActionEvent.DOWN) {
@@ -96,6 +106,27 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision {
       ),
     );
     super.die();
+  }
+
+  void shockNearestEnemy() {
+    var enemy = gameRef.visibleEnemies().firstWhere(
+        (element) => this.position.distanceTo(element.position) < 30);
+
+    gameRef.add(
+      AnimatedFollowerObject(
+        animation: SpriteAnimation.load(
+          'assets/purple_power.png',
+          SpriteAnimationData.sequenced(
+            amount: 8,
+            stepTime: 0.1,
+            textureSize: Vector2(32, 32),
+          ),
+        ),
+        target: enemy,
+        size: Vector2(32, 32),
+        positionFromTarget: Vector2(18, -6),
+      ),
+    );
   }
 
   void actionAttack() {
@@ -150,17 +181,17 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision {
   void update(double dt) {
     if (isDead) return;
     _verifyStamina();
-    this.seeEnemy(
-      radiusVision: tileSize * 6,
-      notObserved: () {
-        showObserveEnemy = false;
-      },
-      observed: (enemies) {
-        if (showObserveEnemy) return;
-        showObserveEnemy = true;
-        _showEmote();
-      },
-    );
+    // this.seeEnemy(
+    //   radiusVision: tileSize * 6,
+    //   notObserved: () {
+    //     showObserveEnemy = false;
+    //   },
+    //   observed: (enemies) {
+    //     if (showObserveEnemy) return;
+    //     showObserveEnemy = true;
+    //     _showEmote();
+    //   },
+    // );
     super.update(dt);
   }
 
@@ -205,7 +236,7 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision {
     super.receiveDamage(attacker, damage, id);
   }
 
-  int getCollectedCoins(){
+  int getCollectedCoins() {
     return this.collectedCoins;
   }
 

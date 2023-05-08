@@ -68,7 +68,6 @@ class _GameState extends State<Game> implements GameListener {
         spriteKnobDirectional: Sprite.load('joystick_knob.png'),
         size: 100,
         isFixed: false,
-
       ),
       actions: [
         JoystickAction(
@@ -101,6 +100,9 @@ class _GameState extends State<Game> implements GameListener {
           acceptedKeys: [
             LogicalKeyboardKey.space,
             LogicalKeyboardKey.keyZ,
+            LogicalKeyboardKey.digit1,
+            LogicalKeyboardKey.digit2,
+            LogicalKeyboardKey.digit3,
           ],
         ),
       );
@@ -110,7 +112,7 @@ class _GameState extends State<Game> implements GameListener {
       color: Colors.transparent,
       child: BonfireWidget(
         gameController: _controller,
-        showCollisionArea: false,
+        showCollisionArea: true,
         joystick: joystick,
         player: Knight(
           Vector2(12 * tileSize, 6 * tileSize),
